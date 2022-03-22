@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+  <div class="post-body">
+    {% if new_post %}
+    <div class="alert alert-success" role="alert">
+      Your post is awaiting moderation, thanks for your contribution.
+    </div>
+    {% else %}
+    <h3>Make a post</h3>
+    <form method="post" style="margin-top: 1.3em;">
+      {{ post_form.as_p }}
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+    </form>
+    {% endif %}
+  </div>
+{% endblock content %}

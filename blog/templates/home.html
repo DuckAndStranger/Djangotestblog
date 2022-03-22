@@ -1,11 +1,12 @@
-<!-- templates/home.html -->
 {% extends 'base.html' %}
  
 {% block content %}
-  {% for post in object_list %}
+  {% for post in posts %}
     <div class="post-entry">
-      <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
-      <p>{{ post.body }}</p>
+      <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+      <p>{{ post.body|truncatewords:30 }}</p>
+      <p style="color:#808080">by {{post.author}}</p>
+      <p style="color:#808080"> {{post.created}}</p>
     </div>
   {% endfor %}
 {% endblock content %}

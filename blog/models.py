@@ -24,11 +24,26 @@ class Post(models.Model):
     status = models.CharField(max_length=10, 
                               choices=STATUS_CHOICES, 
                               default='draft')
-    objects = models.Manager()  # Менеджер по умолчанию  
-    published = PublishedManager()  # Собственный менеджер 
+    objects = models.Manager()
+    published = PublishedManager()
 
     class Meta: 
         ordering = ('-publish',) 
 
     def __str__(self): 
         return self.title
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+    body = models.TextField()
+    author = models.ForeignKey(User, 
+                               on_delete=models.CASCADE, 
+                               related_name='comments', default=1) 
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.author)

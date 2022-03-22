@@ -1,8 +1,10 @@
 from django.urls import path
- 
-from .views import BlogListView, BlogDetailView # новое изменение
- 
+from . import views
 urlpatterns = [
-    path('post/<int:pk>/', BlogDetailView.as_view(), name='post_detail'), # новое изменение
-    path('', BlogListView.as_view(), name='home'),
+    path('post/<slug:slug>/', views.post_detail, name='post_detail'),
+    path('', views.post_list, name='home'),
+    path('create', views.add_post, name='create'),
+    path('register', views.register_request, name='register'),
+    path('login', views.login_request, name='login'),
+    path('logout', views.logout_request, name= 'logout')
 ]

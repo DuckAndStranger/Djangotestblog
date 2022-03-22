@@ -1,16 +1,38 @@
-<!-- templates/base.html -->
 {% load static %} 
 <html>
   <head>
-    <title>Django blog</title>
+    <title>Best website ever</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
-    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   </head>
   <body>
-    <header>
-      <h1><a href="{% url 'home' %}">Django blog</a></h1>
-    </header>
-    <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'home' %}">Best website ever</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="False" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create' %}">Create post</a>
+          </li>
+          {% else %}
+    
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
       {% block content %}
       {% endblock content %}
     </div>
